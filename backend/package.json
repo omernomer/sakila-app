@@ -1,5 +1,7 @@
 {
   "scripts": {
+    "db:up": "cd db && docker-compose up -d",
+    "db:down": "cd db && docker-compose down",
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
     "build": "tsc",
