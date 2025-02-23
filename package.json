@@ -9,6 +9,8 @@
   "scripts": {
     "fe": "npm run dev --workspace=frontend",
     "be": "npm run dev --workspace=backend",
-    "db": "npm run db:up --workspace=backend"
+    "db": "npm run db:up --workspace=backend",
+    "db:down": "npm run db:down --workspace=backend",
+    "prisma:gen": "npm run prisma:gen --workspace=backend"
   }
 }
