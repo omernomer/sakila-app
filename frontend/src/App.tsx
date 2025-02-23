@@ -1,8 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import "./App.css";
-import Charts from "./Charts";
-import Users from "./Users";
 import MainPage from "./components/MainPage";
+import Charts from "./containers/Charts";
+import Users from "./containers/Users";
 
 function App() {
   return (

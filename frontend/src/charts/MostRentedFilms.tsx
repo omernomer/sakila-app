@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { MOST_RENTED_FILMS_URL } from "../utils/urls";
+import { MOST_RENTED_FILMS_ENDPOINT } from "../utils/urls";
 
 function MostRentedFilms() {
   const [films, setFilms] = useState<{ title: string; rentalCount: number }[]>(
@@ -16,7 +16,7 @@ function MostRentedFilms() {
   );
   useEffect(() => {
     const fetchFilms = async () => {
-      const response = await fetch(MOST_RENTED_FILMS_URL);
+      const response = await fetch(MOST_RENTED_FILMS_ENDPOINT);
       const data = await response.json();
       setFilms(data.topRentedFilms);
     };

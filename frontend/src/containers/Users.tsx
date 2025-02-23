@@ -1,10 +1,10 @@
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import { Button, CircularProgress, Stack, Typography } from "@mui/material";
+import { CircularProgress, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import Draggable from "./components/Dragable";
-import Droppable from "./components/Droppable";
-import { UPDATE_USER_STATUS_URL, USERS_URL } from "./utils/urls";
+import Draggable from "../components/Dragable";
+import Droppable from "../components/Droppable";
+import GoToMainPageButton from "../components/GoToMainPageButton";
+import { UPDATE_USER_STATUS_ENDPOINT, USERS_ENDPOINT } from "../utils/urls";
 
 type User = {
   customer_id: number;
@@ -14,12 +14,11 @@ type User = {
 };
 
 function Users() {
-  const navigate = useNavigate();
   const [activeUsers, setActiveUsers] = useState([]);
   const [inactiveUsers, setInactiveUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const fetchUsers = async () => {
-    const response = await fetch(USERS_URL);
+    const response = await fetch(USERS_ENDPOINT);
     const data = await response.json();
     setActiveUsers(data.activeUsers);
     setInactiveUsers(data.inactiveUsers);
@@ -29,7 +28,7 @@ function Users() {
     void fetchUsers();
   }, []);
   const updateUserStatus = async (id: number, active: boolean) => {
-    await fetch(UPDATE_USER_STATUS_URL, {
+    await fetch(UPDATE_USER_STATUS_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,14 +53,7 @@ function Users() {
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => navigate("/")}
-        sx={{ my: 2 }}
-      >
-        Go to main page
-      </Button>
+      <GoToMainPageButton />
       <Stack direction="row" gap={2}>
         <Droppable id="active-users">
           <Stack>

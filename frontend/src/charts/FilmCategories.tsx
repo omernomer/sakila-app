@@ -1,6 +1,6 @@
 import { BarChart } from "@mui/x-charts";
 import { useEffect, useState } from "react";
-import { CATEGORIES_COUNT_URL } from "../utils/urls";
+import { CATEGORIES_COUNT_ENDPOINT } from "../utils/urls";
 
 function FilmCategories() {
   const [categoriesCount, setCategoriesCount] = useState<
@@ -9,7 +9,7 @@ function FilmCategories() {
 
   useEffect(() => {
     const fetchFilmsData = async () => {
-      const response = await fetch(CATEGORIES_COUNT_URL);
+      const response = await fetch(CATEGORIES_COUNT_ENDPOINT);
       const data = await response.json();
       setCategoriesCount(data.categoriesCount);
     };

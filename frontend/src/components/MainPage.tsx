@@ -1,22 +1,13 @@
 import { Button, Stack } from "@mui/material";
-import { useNavigate } from "react-router";
+import { CHARTS_PATH, USERS_PATH } from "../utils/urls";
 
 function MainPage() {
-  const navigate = useNavigate();
   return (
     <Stack direction="row" gap={2}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => navigate("/users")}
-      >
+      <Button variant="contained" color="primary" href={USERS_PATH}>
         Users
       </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => navigate("/charts")}
-      >
+      <Button variant="contained" color="primary" href={CHARTS_PATH}>
         Charts
       </Button>
     </Stack>
