@@ -60,10 +60,7 @@ function Users() {
               activeUsers.map(
                 (user: User) =>
                   user.active && (
-                    <Draggable
-                      key={user?.customer_id}
-                      id={user?.customer_id.toString()}
-                    >
+                    <Draggable key={user?.customer_id} id={user?.customer_id}>
                       <Typography
                         key={user?.customer_id}
                         sx={{ border: "thin solid grey", p: 1, m: 0.5 }}
@@ -82,10 +79,7 @@ function Users() {
               inactiveUsers.map(
                 (user: User) =>
                   !user.active && (
-                    <Draggable
-                      key={user?.customer_id}
-                      id={user?.customer_id.toString()}
-                    >
+                    <Draggable key={user?.customer_id} id={user?.customer_id}>
                       <Typography
                         key={user?.customer_id}
                         sx={{ border: "thin solid grey", p: 1, m: 0.5 }}
