@@ -1,6 +1,7 @@
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import { CircularProgress, Stack, Typography } from "@mui/material";
+import { Button, CircularProgress, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import Draggable from "./components/Dragable";
 import Droppable from "./components/Droppable";
 import { UPDATE_USER_STATUS_URL, USERS_URL } from "./utils/urls";
@@ -13,6 +14,7 @@ type User = {
 };
 
 function Users() {
+  const navigate = useNavigate();
   const [activeUsers, setActiveUsers] = useState([]);
   const [inactiveUsers, setInactiveUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -52,6 +54,14 @@ function Users() {
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => navigate("/")}
+        sx={{ my: 2 }}
+      >
+        Go to main page
+      </Button>
       <Stack direction="row" gap={2}>
         <Droppable id="active-users">
           <Stack>
