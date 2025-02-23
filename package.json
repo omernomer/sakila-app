@@ -1,6 +1,7 @@
 {
   "name": "sakila-app",
   "version": "1.0.0",
+  "private": true,
   "workspaces": [
     "frontend",
     "backend"
@@ -9,8 +10,5 @@
     "fe": "npm run dev --workspace=frontend",
     "be": "npm run dev --workspace=backend",
     "db": "npm run db:up --workspace=backend"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  }
 }
