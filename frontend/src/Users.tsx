@@ -52,10 +52,15 @@ function Users() {
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
-      <Stack direction="row">
+      <Stack direction="row" gap={2}>
         <Droppable id="active-users">
           <Stack>
-            <Typography variant="body1">Active Users</Typography>
+            <Typography
+              variant="body1"
+              sx={{ backgroundColor: "lightgreen", fontWeight: "bold" }}
+            >
+              Active Users
+            </Typography>
             {activeUsers.length > 0 &&
               activeUsers.map(
                 (user: User) =>
@@ -73,8 +78,13 @@ function Users() {
           </Stack>
         </Droppable>
         <Droppable id="inactive-users">
-          <Stack sx={{ border: "thin solid black" }}>
-            <Typography variant="body1">Inactive Users</Typography>
+          <Stack>
+            <Typography
+              variant="body1"
+              sx={{ backgroundColor: "lightgrey", fontWeight: "bold" }}
+            >
+              Inactive Users
+            </Typography>
             {inactiveUsers.length > 0 &&
               inactiveUsers.map(
                 (user: User) =>

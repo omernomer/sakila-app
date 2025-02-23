@@ -17,7 +17,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/users", async (req, res) => {
-  const users = await prisma.customer.findMany();
+  const users = await prisma.customer.findMany({
+    orderBy: {
+      last_update: 'desc'
+    }
+  });
   const activeUsers = users.filter((user: any) => user.active);
   const inactiveUsers = users.filter((user: any) => !user.active);
   res.json({ activeUsers, inactiveUsers });
@@ -25,12 +29,17 @@ app.get("/users", async (req, res) => {
 
 app.post("/update-user-status", async (req, res) => {
   const { id, active } = req.body;
-  const user = await prisma.customer.update({
-    where: { customer_id: id },
-    data: { active }, 
-  });
-
-  res.json(user);
+  try {
+    const user = await prisma.customer.update({
+      where: { customer_id: id },
+      data: { active }, 
+    });
+  
+    res.json(user);
+  }
+  catch (error) {
+    console.log(error);
+  }
 });
 
 export default app;
