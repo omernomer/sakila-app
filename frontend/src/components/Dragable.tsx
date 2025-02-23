@@ -3,7 +3,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { ReactNode } from "react";
 
 interface DraggableProps {
-  id: string;
+  id: string | number;
   children: ReactNode;
 }
 function Draggable({ id, children }: DraggableProps) {
