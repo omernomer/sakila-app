@@ -1,3 +1,5 @@
+## USED NODE v20.18.1
+
 # INSTALATION AND RUNNING THE PROJECT
 
 - run `npm i` in the root
