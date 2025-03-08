@@ -1,4 +1,4 @@
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 export const USERS_ENDPOINT = `${BACKEND_URL}/users`;
 export const UPDATE_USER_STATUS_ENDPOINT = `${BACKEND_URL}/update-user-status`;
 export const CATEGORIES_COUNT_ENDPOINT = `${BACKEND_URL}/categoriesCount`;
