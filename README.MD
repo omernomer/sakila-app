@@ -8,3 +8,7 @@
 - run `npm run prisma:gen` to generate prisma client
 - run `npm run be` to run the backend
 - run `npm run fe` to run the frontend and follow the URL to open the webpage
+
+# DEMO AVAILABLE AT
+
+- [Demo Link](https://sakila-test-app.netlify.app/)
