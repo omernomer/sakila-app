@@ -1,10 +1,26 @@
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import { CircularProgress, Stack, Typography } from "@mui/material";
+import {
+  CircularProgress,
+  LinearProgress,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
-import Draggable from "../components/Dragable";
 import Droppable from "../components/Droppable";
 import GoToMainPageButton from "../components/GoToMainPageButton";
 import { UPDATE_USER_STATUS_ENDPOINT, USERS_ENDPOINT } from "../utils/urls";
+import DraggableName from "./DraggableName";
+
+const styles = {
+  activeUsers: {
+    backgroundColor: "lightgreen",
+    fontWeight: "bold",
+  },
+  inactiveUsers: {
+    backgroundColor: "lightcoral",
+    fontWeight: "bold",
+  },
+};
 
 type User = {
   customer_id: number;
@@ -17,6 +33,7 @@ function Users() {
   const [activeUsers, setActiveUsers] = useState([]);
   const [inactiveUsers, setInactiveUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [listLoading, setListLoading] = useState(false);
   const fetchUsers = async () => {
     const response = await fetch(USERS_ENDPOINT);
     const data = await response.json();
@@ -28,6 +45,7 @@ function Users() {
     void fetchUsers();
   }, []);
   const updateUserStatus = async (id: number, active: boolean) => {
+    setListLoading(true);
     await fetch(UPDATE_USER_STATUS_ENDPOINT, {
       method: "POST",
       headers: {
@@ -35,7 +53,7 @@ function Users() {
       },
       body: JSON.stringify({ id, active }),
     });
-    await fetchUsers();
+    await fetchUsers().finally(() => setListLoading(false));
   };
 
   const handleDragEnd = async (event: DragEndEvent) => {
@@ -54,51 +72,42 @@ function Users() {
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <GoToMainPageButton />
+      {listLoading && <LinearProgress />}
       <Stack direction="row" gap={2}>
         <Droppable id="active-users">
           <Stack>
-            <Typography
-              variant="body1"
-              sx={{ backgroundColor: "lightgreen", fontWeight: "bold" }}
-            >
+            <Typography variant="body1" sx={styles.activeUsers}>
               Active Users
             </Typography>
             {activeUsers.length > 0 &&
               activeUsers.map(
                 (user: User) =>
                   user.active && (
-                    <Draggable key={user?.customer_id} id={user?.customer_id}>
-                      <Typography
-                        key={user?.customer_id}
-                        sx={{ border: "thin solid grey", p: 1, m: 0.5 }}
-                      >
-                        {user?.first_name} {user?.last_name}
-                      </Typography>
-                    </Draggable>
+                    <DraggableName
+                      key={user?.customer_id}
+                      id={user?.customer_id}
+                      name={`${user?.first_name} ${user?.last_name}`}
+                      disabled={listLoading}
+                    />
                   )
               )}
           </Stack>
         </Droppable>
         <Droppable id="inactive-users">
           <Stack>
-            <Typography
-              variant="body1"
-              sx={{ backgroundColor: "lightgrey", fontWeight: "bold" }}
-            >
+            <Typography variant="body1" sx={styles.inactiveUsers}>
               Inactive Users
             </Typography>
             {inactiveUsers.length > 0 &&
               inactiveUsers.map(
                 (user: User) =>
                   !user.active && (
-                    <Draggable key={user?.customer_id} id={user?.customer_id}>
-                      <Typography
-                        key={user?.customer_id}
-                        sx={{ border: "thin solid grey", p: 1, m: 0.5 }}
-                      >
-                        {user?.first_name} {user?.last_name}
-                      </Typography>
-                    </Draggable>
+                    <DraggableName
+                      key={user?.customer_id}
+                      id={user?.customer_id}
+                      name={`${user?.first_name} ${user?.last_name}`}
+                      disabled={listLoading}
+                    />
                   )
               )}
           </Stack>

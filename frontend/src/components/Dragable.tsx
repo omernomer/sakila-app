@@ -5,14 +5,16 @@ import { ReactNode } from "react";
 interface DraggableProps {
   id: string | number;
   children: ReactNode;
+  disabled?: boolean;
 }
-function Draggable({ id, children }: DraggableProps) {
+function Draggable({ id, children, disabled = false }: DraggableProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
+    disabled,
   });
   const style = {
     transform: CSS.Translate.toString(transform),
-    cursor: "grab",
+    cursor: disabled ? "not-allowed" : "grab",
   };
 
   return (
